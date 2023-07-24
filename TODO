@@ -1,11 +1,11 @@
 <features>
 
-- interactive shell/session, where it is easy to input reps
-
-- keep history day by day in sqllite database
-
 - basic bar graphs of each
-
 - basic stats of each
-
 - daily goal for each
+
+
+<done features>
+
+- interactive shell/session, where it is easy to input reps
+- keep history day by day in sqllite database
