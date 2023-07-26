@@ -1,16 +1,15 @@
 from interactive_menu.src.interactive_menu import InteractiveMenu
 
-class StatsMenu(InteractiveMenu):
 
-    def __init__(self, manager):
-        super().__init__(manager)
+class ConsolidateMenu(InteractiveMenu):
 
     def title(self):
-        return "Stats"
+        return "Consolidate"
+
 
     def main_loop(self):
         print("")
         print("------------------------------------------------------")
-        print("Stats feature coming soon!")
+        print("Consolidate DB feature coming soon!")
         print("------------------------------------------------------")
         print("")
