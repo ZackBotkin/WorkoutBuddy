@@ -2,8 +2,8 @@ from interactive_menu.src.interactive_menu import InteractiveMenu
 
 class ListMenu(InteractiveMenu):
 
-    def __init__(self, manager):
-        super().__init__(manager)
+    def __init__(self, manager, path=[]):
+        super().__init__(manager, path)
 
     def title(self):
         return "List"

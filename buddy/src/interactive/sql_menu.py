@@ -4,10 +4,10 @@ from buddy.src.io.query_runner import QueryRunner
 
 class SqlMenu(InteractiveMenu):
 
-    def __init__(self, manager):
-        super().__init__(manager)
+    def __init__(self, manager, path=[]):
+        super().__init__(manager, path)
         self.sub_menu_modules = [
-            WipeTablesMenu(manager)
+            WipeTablesMenu(manager, path)
         ]
 
     def title(self):

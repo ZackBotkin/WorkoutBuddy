@@ -3,15 +3,15 @@ from interactive_menu.src.interactive_menu import InteractiveMenu
 
 class SessionMenu(InteractiveMenu):
 
-    def __init__(self, manager):
-        super().__init__(manager)
+    def __init__(self, manager, path=[]):
+        super().__init__(manager, path)
         self.sub_menu_modules = [
-            PullupMenu(manager),
-            PushupMenu(manager),
-            BicepMenu(manager),
-            PlankMenu(manager),
-            ShoulderMenu(manager),
-            LatsMenu(manager)
+            PullupMenu(manager, self.path),
+            PushupMenu(manager, self.path),
+            BicepMenu(manager, self.path),
+            PlankMenu(manager, self.path),
+            ShoulderMenu(manager, self.path),
+            LatsMenu(manager, self.path)
         ]
 
     def title(self):

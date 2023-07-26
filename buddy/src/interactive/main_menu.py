@@ -9,15 +9,18 @@ from buddy.src.interactive.consolidate_menu import ConsolidateMenu
 
 class MainMenu(InteractiveMenu):
 
-    def __init__(self, manager):
-        super().__init__(manager)
+    def __init__(self, manager, path=[]):
+        super().__init__(manager, path)
         self.sub_menu_modules = [
-            SessionMenu(manager),
-            ListMenu(manager),
-            StatsMenu(manager),
-            GoalsMenu(manager),
-            GraphMenu(manager),
-            ConsolidateMenu(manager)
+            SessionMenu(manager, self.path),
+            ListMenu(manager, self.path),
+            StatsMenu(manager, self.path),
+            GoalsMenu(manager, self.path),
+            GraphMenu(manager, self.path),
+            ConsolidateMenu(manager, self.path)
         ]
         if manager.config.get("enable_direct_sql_editing"):
             self.sub_menu_modules.append(SqlMenu(manager))
+
+    def title(self):
+        return "Main"
