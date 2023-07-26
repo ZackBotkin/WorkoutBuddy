@@ -1,3 +1,5 @@
+import plotly
+import pandas
 from datetime import datetime
 from buddy.src.io.query_runner import QueryRunner
 
@@ -77,4 +79,188 @@ class ContextManager(object):
         print("\t%d lat raises" % lats_total)
 
         print("-----------------------------------")
+
+
+    ##
+    ##  Graph functions, probably move to own class
+    ##
+    def bar_graph_pullups(self):
+
+        x_vals = []
+        y_vals = []
+
+        by_date = {}
+
+        query_runner = QueryRunner(self.config)
+
+        all_pullup_rows = query_runner.get_pullups()
+
+        for row in all_pullup_rows:
+            date = row[0]
+            count = row[1]
+            if date not in by_date:
+                by_date[date] = 0
+            by_date[date] += count
+
+        for date, count in by_date.items():
+            x_vals.append(date)
+            y_vals.append(count)
+
+        import plotly.express as px
+        df = pandas.DataFrame({
+            'x': x_vals,
+            'y': y_vals,
+        })
+        fig = px.bar(df, x='x', y='y')
+        fig.write_html('pullups.html', auto_open=True)
+
+    def bar_graph_pushups(self):
+
+        x_vals = []
+        y_vals = []
+
+        by_date = {}
+
+        query_runner = QueryRunner(self.config)
+
+        all_pushup_rows = query_runner.get_pushups()
+
+        for row in all_pushup_rows:
+            date = row[0]
+            count = row[1]
+            if date not in by_date:
+                by_date[date] = 0
+            by_date[date] += count
+
+        for date, count in by_date.items():
+            x_vals.append(date)
+            y_vals.append(count)
+
+        import plotly.express as px
+        df = pandas.DataFrame({
+            'x': x_vals,
+            'y': y_vals,
+        })
+        fig = px.bar(df, x='x', y='y')
+        fig.write_html('pushups.html', auto_open=True)
+
+    def bar_graph_biceps(self):
+
+        x_vals = []
+        y_vals = []
+
+        by_date = {}
+
+        query_runner = QueryRunner(self.config)
+
+        all_bicep_rows = query_runner.get_biceps()
+
+        for row in all_bicep_rows:
+            date = row[0]
+            count = row[1]
+            if date not in by_date:
+                by_date[date] = 0
+            by_date[date] += count
+
+        for date, count in by_date.items():
+            x_vals.append(date)
+            y_vals.append(count)
+
+        import plotly.express as px
+        df = pandas.DataFrame({
+            'x': x_vals,
+            'y': y_vals,
+        })
+        fig = px.bar(df, x='x', y='y')
+        fig.write_html('biceps.html', auto_open=True)
+
+    def bar_graph_planks(self):
+
+        x_vals = []
+        y_vals = []
+
+        by_date = {}
+
+        query_runner = QueryRunner(self.config)
+
+        all_planks_rows = query_runner.get_planks()
+
+        for row in all_planks_rows:
+            date = row[0]
+            count = row[1]
+            if date not in by_date:
+                by_date[date] = 0
+            by_date[date] += count
+
+        for date, count in by_date.items():
+            x_vals.append(date)
+            y_vals.append(count)
+
+        import plotly.express as px
+        df = pandas.DataFrame({
+            'x': x_vals,
+            'y': y_vals,
+        })
+        fig = px.bar(df, x='x', y='y')
+        fig.write_html('planks.html', auto_open=True)
+
+    def bar_graph_shoulders(self):
+
+        x_vals = []
+        y_vals = []
+
+        by_date = {}
+
+        query_runner = QueryRunner(self.config)
+
+        all_shoulders_rows = query_runner.get_shoulders()
+
+        for row in all_shoulders_rows:
+            date = row[0]
+            count = row[1]
+            if date not in by_date:
+                by_date[date] = 0
+            by_date[date] += count
+
+        for date, count in by_date.items():
+            x_vals.append(date)
+            y_vals.append(count)
+
+        import plotly.express as px
+        df = pandas.DataFrame({
+            'x': x_vals,
+            'y': y_vals,
+        })
+        fig = px.bar(df, x='x', y='y')
+        fig.write_html('shoulders.html', auto_open=True)
+
+    def bar_graph_lats(self):
+
+        x_vals = []
+        y_vals = []
+
+        by_date = {}
+
+        query_runner = QueryRunner(self.config)
+
+        all_lats_rows = query_runner.get_lats()
+
+        for row in all_lats_rows:
+            date = row[0]
+            count = row[1]
+            if date not in by_date:
+                by_date[date] = 0
+            by_date[date] += count
+
+        for date, count in by_date.items():
+            x_vals.append(date)
+            y_vals.append(count)
+
+        import plotly.express as px
+        df = pandas.DataFrame({
+            'x': x_vals,
+            'y': y_vals,
+        })
+        fig = px.bar(df, x='x', y='y')
+        fig.write_html('lats.html', auto_open=True)
 
