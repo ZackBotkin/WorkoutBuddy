@@ -174,4 +174,156 @@ class QueryRunner(object):
         sql_str = "INSERT INTO lats ('date', 'count') VALUES ('%s', '%s')" % (date, count)
         self.run_sql(sql_str)
 
+    #
+    #   Consolidate data
+    #
+    def consolidate_pullups(self, dry_run=True):
+        all_pullup_rows = self.get_pullups()
+        seen_dates = {}
+        row_count = 0
+        for row in all_pullup_rows:
+            row_count += 1
+            date = row[0]
+            count = row[1]
+            if date not in seen_dates:
+                seen_dates[date] = 0
+            seen_dates[date] += count
+
+        sql_str = "INSERT INTO pullups ('date', 'count') VALUES"
+        for date, count in seen_dates.items():
+            sql_str += "('%s', '%s')," % (date, count)
+        sql_str = sql_str[:-1]
+
+        if not dry_run:
+            self.run_sql("DELETE FROM pullups")
+            self.run_sql(sql_str)
+        return {
+            "pre_count": row_count,
+            "post_count": len(seen_dates.keys())
+        }
+
+    def consolidate_pushups(self, dry_run=True):
+        all_pushup_rows = self.get_pushups()
+        seen_dates = {}
+        row_count = 0
+        for row in all_pushup_rows:
+            row_count += 1
+            date = row[0]
+            count = row[1]
+            if date not in seen_dates:
+                seen_dates[date] = 0
+            seen_dates[date] += count
+
+        sql_str = "INSERT INTO pushups ('date', 'count') VALUES"
+        for date, count in seen_dates.items():
+            sql_str += "('%s', '%s')," % (date, count)
+        sql_str = sql_str[:-1]
+
+        if not dry_run:
+            self.run_sql("DELETE FROM pushups")
+            self.run_sql(sql_str)
+        return {
+            "pre_count": row_count,
+            "post_count": len(seen_dates.keys())
+        }
+
+    def consolidate_biceps(self, dry_run=True):
+        all_biceps_rows = self.get_biceps()
+        seen_dates = {}
+        row_count = 0
+        for row in all_biceps_rows:
+            row_count += 1
+            date = row[0]
+            count = row[1]
+            if date not in seen_dates:
+                seen_dates[date] = 0
+            seen_dates[date] += count
+
+        sql_str = "INSERT INTO biceps ('date', 'count') VALUES"
+        for date, count in seen_dates.items():
+            sql_str += "('%s', '%s')," % (date, count)
+        sql_str = sql_str[:-1]
+
+        if not dry_run:
+            self.run_sql("DELETE FROM biceps")
+            self.run_sql(sql_str)
+        return {
+            "pre_count": row_count,
+            "post_count": len(seen_dates.keys())
+        }
+
+    def consolidate_planks(self, dry_run=True):
+        all_planks_rows = self.get_planks()
+        seen_dates = {}
+        row_count = 0
+        for row in all_planks_rows:
+            row_count += 1
+            date = row[0]
+            count = row[1]
+            if date not in seen_dates:
+                seen_dates[date] = 0
+            seen_dates[date] += count
+
+        sql_str = "INSERT INTO planks ('date', 'seconds') VALUES"
+        for date, seconds in seen_dates.items():
+            sql_str += "('%s', '%s')," % (date, seconds)
+        sql_str = sql_str[:-1]
+
+        if not dry_run:
+            self.run_sql("DELETE FROM planks")
+            self.run_sql(sql_str)
+        return {
+            "pre_count": row_count,
+            "post_count": len(seen_dates.keys())
+        }
+
+    def consolidate_shoulders(self, dry_run=True):
+        all_shoulder_rows = self.get_shoulders()
+        seen_dates = {}
+        row_count = 0
+        for row in all_shoulder_rows:
+            row_count += 1
+            date = row[0]
+            count = row[1]
+            if date not in seen_dates:
+                seen_dates[date] = 0
+            seen_dates[date] += count
+
+        sql_str = "INSERT INTO shoulders ('date', 'count') VALUES"
+        for date, count in seen_dates.items():
+            sql_str += "('%s', '%s')," % (date, count)
+        sql_str = sql_str[:-1]
+
+        if not dry_run:
+            self.run_sql("DELETE FROM shoulders")
+            self.run_sql(sql_str)
+        return {
+            "pre_count": row_count,
+            "post_count": len(seen_dates.keys())
+        }
+
+    def consolidate_lats(self, dry_run=True):
+        all_lat_rows = self.get_lats()
+        seen_dates = {}
+        row_count = 0
+        for row in all_lat_rows:
+            row_count += 1
+            date = row[0]
+            count = row[1]
+            if date not in seen_dates:
+                seen_dates[date] = 0
+            seen_dates[date] += count
+
+        sql_str = "INSERT INTO lats ('date', 'count') VALUES"
+        for date, count in seen_dates.items():
+            sql_str += "('%s', '%s')," % (date, count)
+        sql_str = sql_str[:-1]
+
+        if not dry_run:
+            self.run_sql("DELETE FROM lats")
+            self.run_sql(sql_str)
+        return {
+            "pre_count": row_count,
+            "post_count": len(seen_dates.keys())
+        }
 

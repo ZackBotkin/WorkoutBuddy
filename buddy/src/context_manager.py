@@ -264,3 +264,50 @@ class ContextManager(object):
         fig = px.bar(df, x='x', y='y')
         fig.write_html('lats.html', auto_open=True)
 
+    def consolidate_data(self, dry_run=True):
+
+        query_runner = QueryRunner(self.config)
+
+        total_pre_count = 0
+        total_post_count = 0
+
+        pullup_results = query_runner.consolidate_pullups(dry_run)
+        total_pre_count += pullup_results["pre_count"]
+        total_post_count += pullup_results["post_count"]
+
+        pushup_results = query_runner.consolidate_pushups(dry_run)
+        total_pre_count += pushup_results["pre_count"]
+        total_post_count += pushup_results["post_count"]
+
+        bicep_results = query_runner.consolidate_biceps(dry_run)
+        total_pre_count += bicep_results["pre_count"]
+        total_post_count += bicep_results["post_count"]
+
+        plank_results = query_runner.consolidate_planks(dry_run)
+        total_pre_count += plank_results["pre_count"]
+        total_post_count += plank_results["post_count"]
+
+        shoulder_results = query_runner.consolidate_shoulders(dry_run)
+        total_pre_count += shoulder_results["pre_count"]
+        total_post_count += shoulder_results["post_count"]
+
+        lat_results = query_runner.consolidate_lats(dry_run)
+        total_pre_count += lat_results["pre_count"]
+        total_post_count += lat_results["post_count"]
+
+        consolidation_results = {
+            "pullups": pullup_results,
+            "pushups": pushup_results,
+            "biceps": bicep_results,
+            "planks": plank_results,
+            "shoulders": shoulder_results,
+            "lats": lat_results,
+            "total": {
+                "pre_count": total_pre_count,
+                "post_count": total_post_count
+            }
+        }
+
+        return consolidation_results
+
+
