@@ -14,8 +14,9 @@ class SessionMenu(InteractiveMenu):
             LatsMenu(manager, self.path)
         ]
 
+    ## TODO : rename this whole thing "Record" session is kind of dumb
     def title(self):
-        return "Session"
+        return "Record"
 
 class PullupMenu(InteractiveMenu):
     def title(self):
