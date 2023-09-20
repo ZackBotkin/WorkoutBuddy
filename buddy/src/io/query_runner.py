@@ -30,6 +30,7 @@ class QueryRunner(object):
         self.create_planks_table()
         self.create_shoulders_table()
         self.create_lats_table()
+        self.create_bikes_table()
 
     def create_pullups_table(self):
         sql_str = "CREATE TABLE pullups(date DATE, count INT)"
@@ -73,6 +74,13 @@ class QueryRunner(object):
         except sqlite3.OperationalError:
             pass
 
+    def create_bikes_table(self):
+        sql_str = "CREATE TABLE bikes(date DATE, seconds INT)"
+        try:
+            self.run_sql(sql_str)
+        except sqlite3.OperationalError:
+            pass
+
     ##
     ## Wipe table methods
     ##
@@ -83,6 +91,7 @@ class QueryRunner(object):
         self.wipe_planks_table()
         self.wipe_shoulders_table()
         self.wipe_lats_table()
+        self.wipe_bikes_table()
 
     def wipe_pullups_table(self):
         sql_str = "DELETE FROM pullups"
@@ -106,6 +115,10 @@ class QueryRunner(object):
 
     def wipe_lats_table(self):
         sql_str = "DELETE FROM lats"
+        self.run_sql(sql_str)
+
+    def wipe_bikes_table(self):
+        sql_str = "DELETE FROM bikes"
         self.run_sql(sql_str)
 
     ##
@@ -147,6 +160,12 @@ class QueryRunner(object):
             sql_str += " WHERE date = '%s'" % date
         return self.fetch_sql(sql_str)
 
+    def get_bikes(self, date=None):
+        sql_str = "SELECT * FROM bikes"
+        if date is not None:
+            sql_str += " WHERE date = '%s'" % date
+        return self.fetch_sql(sql_str)
+
     ##
     ##  Insert methods
     ##
@@ -172,6 +191,10 @@ class QueryRunner(object):
 
     def insert_lats(self, date, count):
         sql_str = "INSERT INTO lats ('date', 'count') VALUES ('%s', '%s')" % (date, count)
+        self.run_sql(sql_str)
+
+    def insert_bikes(self, date, seconds):
+        sql_str = "INSERT INTO bikes ('date', 'seconds') VALUES ('%s', '%s')" % (date, seconds)
         self.run_sql(sql_str)
 
     #
@@ -321,6 +344,31 @@ class QueryRunner(object):
 
         if not dry_run:
             self.run_sql("DELETE FROM lats")
+            self.run_sql(sql_str)
+        return {
+            "pre_count": row_count,
+            "post_count": len(seen_dates.keys())
+        }
+
+    def consolidate_bikes(self, dry_run=True):
+        all_bikes_rows = self.get_bikes()
+        seen_dates = {}
+        row_count = 0
+        for row in all_bikes_rows:
+            row_count += 1
+            date = row[0]
+            count = row[1]
+            if date not in seen_dates:
+                seen_dates[date] = 0
+            seen_dates[date] += count
+
+        sql_str = "INSERT INTO bikes ('date', 'seconds') VALUES"
+        for date, seconds in seen_dates.items():
+            sql_str += "('%s', '%s')," % (date, seconds)
+        sql_str = sql_str[:-1]
+
+        if not dry_run:
+            self.run_sql("DELETE FROM bikes")
             self.run_sql(sql_str)
         return {
             "pre_count": row_count,

@@ -11,7 +11,8 @@ class GraphMenu(InteractiveMenu):
             GraphBicepsMenu(manager),
             GraphPlanksMenu(manager),
             GraphShouldersMenu(manager),
-            GraphLatsMenu(manager)
+            GraphLatsMenu(manager),
+            GraphBikesMenu(manager)
         ]
 
     def title(self):
@@ -29,6 +30,7 @@ class GraphAllMenu(InteractiveMenu):
         self.manager.bar_graph_planks()
         self.manager.bar_graph_shoulders()
         self.manager.bar_graph_lats()
+        self.manager.bar_graph_bikes()
 
 class GraphPullupsMenu(InteractiveMenu):
 
@@ -77,4 +79,12 @@ class GraphLatsMenu(InteractiveMenu):
 
     def main_loop(self):
         self.manager.bar_graph_lats()
+
+class GraphBikesMenu(InteractiveMenu):
+
+    def title(self):
+        return "Bikes"
+
+    def main_loop(self):
+        self.manager.bar_graph_bikes()
 

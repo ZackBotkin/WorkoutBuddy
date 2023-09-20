@@ -11,7 +11,8 @@ class SessionMenu(InteractiveMenu):
             BicepMenu(manager, self.path),
             PlankMenu(manager, self.path),
             ShoulderMenu(manager, self.path),
-            LatsMenu(manager, self.path)
+            LatsMenu(manager, self.path),
+            BikesMenu(manager, self.path)
         ]
 
     ## TODO : rename this whole thing "Record" session is kind of dumb
@@ -81,6 +82,17 @@ class LatsMenu(InteractiveMenu):
         count = self.fancy_input()
         if count.isdigit():
             self.manager.insert_lats(count)
+        else:
+            print("%s is not a number!" % count)
+
+class BikesMenu(InteractiveMenu):
+    def title(self):
+        return "Bikes"
+    def main_loop(self):
+        print("Seconds")
+        count = self.fancy_input()
+        if count.isdigit():
+            self.manager.insert_bikes(count)
         else:
             print("%s is not a number!" % count)
 

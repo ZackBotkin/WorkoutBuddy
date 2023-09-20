@@ -31,6 +31,8 @@ class ConsolidateMenu(InteractiveMenu):
         print("|\tConsolidated %d rows to %d rows" % (results["shoulders"]["pre_count"], results["shoulders"]["post_count"]))
         print("| Lats")
         print("|\tConsolidated %d rows to %d rows" % (results["lats"]["pre_count"], results["lats"]["post_count"]))
+        print("| Bikes")
+        print("|\tConsolidated %d rows to %d rows" % (results["bikes"]["pre_count"], results["bikes"]["post_count"]))
         print("| Total")
         print("|\tConsolidated %d rows to %d rows" % (results["total"]["pre_count"], results["total"]["post_count"]))
         print("| ")
