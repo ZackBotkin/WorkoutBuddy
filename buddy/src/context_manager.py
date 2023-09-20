@@ -346,7 +346,7 @@ class ContextManager(object):
             "planks": plank_results,
             "shoulders": shoulder_results,
             "lats": lat_results,
-            "bikes": bikes_result,
+            "bikes": bikes_results,
             "total": {
                 "pre_count": total_pre_count,
                 "post_count": total_post_count
